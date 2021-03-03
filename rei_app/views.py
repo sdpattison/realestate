@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-from .services import searchProperties
 from .models import Lead
 from login_app.models import User
 from django.contrib import messages
@@ -47,7 +46,7 @@ def rental_parse(request):
             url = "https://mashvisor-api.p.rapidapi.com/city/top-markets"
             querystring = {"state":f"{state_code}","items":"5"}
             headers = {
-                'x-rapidapi-key': "",
+                'x-rapidapi-key': "[YOUR_API_KEY]",
                 'x-rapidapi-host': "mashvisor-api.p.rapidapi.com"
             }
             response = requests.request("GET", url, headers=headers, params=querystring)
@@ -63,7 +62,7 @@ def rental_parse(request):
             url = "https://mashvisor-api.p.rapidapi.com/trends/cities"
             querystring = {"state":f"{state_code}","page":"1","items":"5"}
             headers = {
-                'x-rapidapi-key': "",
+                'x-rapidapi-key': "[YOUR_API_KEY]",
                 'x-rapidapi-host': "mashvisor-api.p.rapidapi.com"
                 }
             response = requests.request("GET", url, headers=headers, params=querystring)
@@ -107,7 +106,7 @@ def search_properties(request):
             "radius" : f"{radius}"
         }
         headers = {
-            'x-rapidapi-key': "",
+            'x-rapidapi-key': "[YOUR_API_KEY]",
             'x-rapidapi-host': "realtor.p.rapidapi.com"
             }
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -160,7 +159,7 @@ def investment_performance(request, state, city):
     else:
         url = f"https://mashvisor-api.p.rapidapi.com/city/investment/{state}/{city}"
         headers = {
-            'x-rapidapi-key': "",
+            'x-rapidapi-key': "[YOUR_API_KEY]",
             'x-rapidapi-host': "mashvisor-api.p.rapidapi.com"
         }
         response = requests.request("GET", url, headers=headers)
@@ -170,6 +169,6 @@ def investment_performance(request, state, city):
             'this_user' : User.objects.get(id = request.session['user_id']),
             'market_data' : market_data['content'],
             'city' : city,
-            'state' : state,
+            'state' : state
         }
         return render(request, 'investment_performance.html', context)
