@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anvil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        {% load humanize%}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="mt-2">
+            <div class="row">
+                <h1>Welcome {{this_user.first_name}}, Let's Buy Some Shit</h1>
+            </div>
+        </header>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rental_type">Search For Hot Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/broad_search">Search For New Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my_account">My Account</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login/logout">Log Out</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <table class="table table-light table-hover mt-4">
+                <thead>
+                    <th>Property ID</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Property Type</th>
+                    <th>Price</th>
+                    <th>Beds</th>
+                    <th>Baths</th>
+                    <th>Square Feet</th>
+                    <th>View Listing</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    {% for property in properties %}
+                    <tr>
+                        <form action="/create_lead" method="post">
+                            {% csrf_token %}
+                            <td> 
+                                {{ property.property_id }}
+                                <input type="hidden" name="property_id" value="{{property.property_id}}">
+                            </td>
+                            <td>
+                                {{property.address.line}}
+                                <input type="hidden" name="address" value="{{property.address.line}}">
+                            </td>
+                            <td>
+                                {{property.address.city}}
+                                <input type="hidden" name="city" value="{{property.address.city}}">
+                            </td>
+                            <td>
+                                {{property.address.state_code}}
+                                <input type="hidden" name="state" value="{{property.address.state_code}}">
+                            </td>
+                            <td>
+                                {{property.address.postal_code}}
+                                <input type="hidden" name="postal_code" value="{{property.address.postal_code}}">
+                            </td>
+                            <td>
+                                {{property.prop_type}}
+                                <input type="hidden" name="prop_type" value="{{property.prop_type}}">
+                            </td>
+                            <td>
+                                ${{ property.price|floatformat:2|intcomma }}
+                                <input type="hidden" name="price" value="{{property.price}}">
+                            </td>
+                            <td>
+                                {{ property.beds }}
+                                <input type="hidden" name="beds" value="{{property.beds}}">
+                            </td>
+                            <td> 
+                                {{property.baths }}
+                                <input type="hidden" name="baths" value="{{property.baths}}">
+                            </td>
+                            <td>
+                                {{property.building_size.size|floatformat:2 }}
+                            </td>
+                            <td>
+                                <a href="{{property.rdc_web_url}}">View</a>
+                                <input type="hidden" name="listing" value="{{property.rdc_web_url}}">
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Add to My Leads</button>
+                            </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

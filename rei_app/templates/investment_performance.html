@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anvil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        {% load humanize %}
+</head>
+<body>
+    <header class="mt-2">
+        <div class="row">
+            <h1>Welcome {{this_user.first_name}}, Let's Buy Some Shit</h1>
+        </div>
+    </header>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rental_type">Search For Hot Markets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/broad_search">Search For New Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_account">My Account</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/logout">Log Out</a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row mt-5">
+            <h4>{{city}}, {{state}}</h4>
+            <h5>Median Property Price: ${{market_data.median_price|intcomma}}</h5>
+            <h5>Property Average Square Feet: {{market_data.sqft|intcomma}}</h5>
+            <h5>City Average Occupancy Rate: {{market_data.occupancy}}%</h5>
+            <div class="col-6 mt-3">
+                <h6>Traditional Property Data</h6>
+                <ul>
+                    <li>Properties: {{market_data.traditional_properties|intcomma}}</li>
+                    <li>Cash on Cash Return: {{market_data.traditional_coc|floatformat:2}}%</li>
+                    <li>Average Rent: ${{market_data.traditional_rental|floatformat:2|intcomma}}</li>
+                    <ul>
+                        <li>Average Studio Rent: ${{market_data.traditional_rental_rates.zeroBedRoomHomeValue|floatformat:2|intcomma}}</li> 
+                        <li>Average 1 BR Rent: ${{market_data.traditional_rental_rates.oneBedRoomHomeValue|floatformat:2|intcomma}}</li>
+                        <li>Average 2 BR Rent: ${{market_data.traditional_rental_rates.twoBedRoomsHomeValue|floatformat:2|intcomma}}</li>
+                        <li>Average 3 BR Rent: ${{market_data.traditional_rental_rates.threeBedRoomsHomeValue|floatformat:2|intcomma}}</li>
+                        <li>Average 4 BR Rent: ${{market_data.traditional_rental_rates.fourBedRoomsHomeValue|floatformat:2|intcomma}}</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="col-6 mt-3">
+                <h6>Short Term Rental Property Data</h6>
+                <ul>
+                    <li>Properties: {{market_data.airbnb_properties|intcomma}}</li>
+                    <li>Cash on Cash Return: {{market_data.airbnb_coc|floatformat:2}}%</li>
+                    <li>Average Rent: ${{market_data.airbnb_rental|floatformat:2|intcomma}}</li>
+                    <ul>
+                        <li>Average Studio Rent: ${{market_data.airbnb_rental_rates.zeroBedRoomHomeValue|floatformat:2|intcomma}}</li> 
+                        <li>Average 1 BR Rent: ${{market_data.airbnb_rental_rates.oneBedRoomHomeValue|floatformat:2|intcomma}}</li>
+                        <li>Average 2 BR Rent: ${{market_data.airbnb_rental_rates.twoBedRoomsHomeValue|floatformat:2|intcomma}}</li>
+                        <li>Average 3 BR Rent: ${{market_data.airbnb_rental_rates.threeBedRoomsHomeValue|floatformat:2|intcomma}}</li>
+                        <li>Average 4 BR Rent: ${{market_data.airbnb_rental_rates.fourBedRoomsHomeValue|floatformat:2|intcomma}}</li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

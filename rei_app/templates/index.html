@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anvil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        {% load humanize %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="mt-2">
+            <div class="row">
+                <h1>Welcome {{this_user.first_name}}, Let's Buy Some Shit</h1>
+            </div>
+        </header>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rental_type">Search For Hot Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/broad_search">Search For New Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my_account">My Account</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login/logout">Log Out</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid mt-4 justify-content-center">
+            {% if this_user.leads.all %}
+            <table class="table table-light table-hover mt-4">
+                <thead>
+                    <th>Property ID</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Price</th>
+                    <th>Beds</th>
+                    <th>Baths</th>
+                    <th>Property Type</th>
+                    <th>View Listing</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    {% for lead in this_user.leads.all %}
+                    <tr>
+                        <td>{{lead.property_id}}</td>
+                        <td>{{lead.address}}</td>
+                        <td>{{lead.city}}</td>
+                        <td>{{lead.state}}</td>
+                        <td>{{lead.postal_code}}</td>
+                        <td>${{lead.price|floatformat:2|intcomma}}</td>
+                        <td>{{lead.beds}}</td>
+                        <td>{{lead.baths}}</td>
+                        <td>{{lead.prop_type}}</td>
+                        <td><a href="{{lead.listing}}">View Listing</a></td>
+                        <td><a href="/remove_lead/{{lead.id}}">Remove From My Leads</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <h3>Oops! Looks like you don't have any leads yet! Click <a href="/broad_search">here</a> to search for leads!</h3>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

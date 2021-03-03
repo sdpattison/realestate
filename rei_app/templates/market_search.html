@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anvil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="mt-2">
+            <div class="row">
+                <h1>Welcome {{this_user.first_name}}, Let's Buy Some Shit</h1>
+            </div>
+        </header>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rental_type">Search For Hot Markets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/broad_search">Search For New Properties</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/my_account">My Account</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login/logout">Log Out</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row text-align-center">
+                <h4 class="p-3 mt-3">Find The Best Cities To Invest In</h4>
+            </div>
+            <form action="/rental_parse" class="form-control pd-3 mt-3" method="post">
+                {% csrf_token %}
+                Rental Type: <select name="rental_type" class="form-select mt-2 mb-2">
+                    <option selected>Choose Rental Type</option>
+                    <option value="traditional">Traditional</option>
+                    <option value="short_term">Short Term</option>
+                </select>
+                State: <select name="state" class="form-select mt-2 mb-2">
+                    <option selected>Choose State</option>
+                    <option value="AL">Alabama - AL</option>
+                    <option value="AK">Alaska - AK</option>
+                    <option value="AZ">Arizona - AZ</option>
+                    <option value="AR">Arkansas - AR</option>
+                    <option value="CA">California - CA</option>
+                    <option value="CO">Colorado - CO</option>
+                    <option value="CT">Connecticut - CT</option>
+                    <option value="DC">Washington, DC - DC</option>
+                    <option value="DE">Delaware - DE</option>
+                    <option value="FL">Florida - FL</option>
+                    <option value="GA">Georgia - GA</option>
+                    <option value="HI">Hawaii - HI</option>
+                    <option value="ID">Idaho - ID</option>
+                    <option value="IL">Illinois - IL</option>
+                    <option value="IN">Indiana - IN</option>
+                    <option value="IA">Iowa - IA</option>
+                    <option value="KS">Kansas - KS</option>
+                    <option value="KY">Kentucky - KY</option>
+                    <option value="LA">Louisiana - LA</option>
+                    <option value="ME">Maine - ME</option>
+                    <option value="MD">Maryland - MD</option>
+                    <option value="MA">Massachusetts - MA</option>
+                    <option value="MI">Michigan - MI</option>
+                    <option value="MN">Minnesota - MN</option>
+                    <option value="MS">Mississippi - MS</option>
+                    <option value="MO">Missouri - MO</option>
+                    <option value="MT">Montana - MT</option>
+                    <option value="NE">Nebraska - NE</option>
+                    <option value="NV">Nevada - NV</option>
+                    <option value="NH">New Hampshire - NH</option>
+                    <option value="NJ">New Jersey - NJ</option>
+                    <option value="NM">New Mexico - NM</option>
+                    <option value="NY">New York - NY</option>
+                    <option value="NC">North Carolina - NC</option>
+                    <option value="ND">North Dakota - ND</option>
+                    <option value="OH">Ohio - OH</option>
+                    <option value="OK">Oklahoma - OK</option>
+                    <option value="OR">Oregon - OR</option>
+                    <option value="PA">Pennsylvania - PA</option>
+                    <option value="RI">Rhode Island - RI</option>
+                    <option value="SC">South Carolina - SC</option>
+                    <option value="SD">South Dakota - SD</option>
+                    <option value="TN">Tennessee - TN</option>
+                    <option value="TX">Texas - TX</option>
+                    <option value="UT">Utah - UT</option>
+                    <option value="VT">Vermont - VT</option>
+                    <option value="VA">Virginia - VA</option>
+                    <option value="WA">Washington - WA</option>
+                    <option value="WV">West Virginia - WV</option>
+                    <option value="WI">Wisconsin - WI</option>
+                    <option value="WY">Wyoming - WY</option>
+                </select>
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

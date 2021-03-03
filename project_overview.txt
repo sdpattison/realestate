@@ -1,0 +1,32 @@
+Models = {
+    1. User
+        - First Name
+        - Last Name
+        - Email Address
+    
+    2. Lead
+        - Property Address
+        - Property Type
+        - List Price
+        - Rent Estimate
+        - Units
+        - Bedrooms
+        - Bathrooms
+        - Square Feet
+        - Many to Many with Users
+}
+
+Nav Bar = {
+    'Home' - Login if session[user_id] isn't found, else display form for search
+    'My Leads' - Displays all user leads in Table format
+    'My Account' - Displays specific user in session['user_id']'s account information
+    'Log Out' - Allows User to Log Out
+}
+
+Capabilities = {
+    'Register or Log in'
+    'Search for Leads'
+    'Add Lead' - Adds JSON data into the Lead Model
+    'Remove Lead' - Removes Lead from Model
+    'New Leads' - Automate to run once per day to show the User leads based off of previous criteria
+}
